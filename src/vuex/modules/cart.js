@@ -13,10 +13,10 @@ export default {
     REMOVE_FROM_CARD(state, index) {
       state.cart.splice(index, 1);
     },
-    decrementItemCart(state, index) {
+    DECREMENT_ITEM_CART(state, index) {
       state.cart[index].quantity -= 1;
     },
-    incrementItemCart(state, index) {
+    INCREMENT_ITEM_CART(state, index) {
       state.cart[index].quantity += 1;
     },
   },
@@ -40,10 +40,7 @@ export default {
     CARD(state) {
       return state.cart;
     },
-    getCatalogItems(state, getters, rootState) {
-      return rootState.products;
-    },
-    getTotalCost(state) {
+    GET_TOTAL_COST(state) {
       let totalCost = state.cart.reduce((total, cardFromCart)=> {
         return total + (cardFromCart.quantity * cardFromCart.price);
       }, 0);

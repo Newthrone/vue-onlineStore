@@ -30,21 +30,21 @@ export default {
     vCartItem,
   },
   computed: {
-    ...mapGetters(['CARD', 'getTotalCost']),
+    ...mapGetters(['CARD', 'GET_TOTAL_COST']),
     cartTotalCost() {
-      return this.getTotalCost;
+      return this.GET_TOTAL_COST;
     }
   },
   methods: {
-    ...mapMutations(['REMOVE_FROM_CARD', 'decrementItemCart', 'incrementItemCart']),
+    ...mapMutations(['REMOVE_FROM_CARD', 'DECREMENT_ITEM_CART', 'INCREMENT_ITEM_CART']),
     removeCard(index){
       this.REMOVE_FROM_CARD(index);
     },
     decrement(index) {
-      this.decrementItemCart(index);
+      this.DECREMENT_ITEM_CART(index);
     },
     increment(index) {
-      this.incrementItemCart(index);
+      this.INCREMENT_ITEM_CART(index);
     },
   },
 }

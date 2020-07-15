@@ -14,7 +14,7 @@ export default {
   name: 'v-main-wrapper',
   data() {
     return {
-      title: "I'm v-main-wrapper",
+      title: "Actual offers",
       url: 'http://localhost:3000/products',
     }
   },
@@ -23,9 +23,6 @@ export default {
   },
   created() {
     this.GET_PRODUCTS_FROM_API(this.url);
-      // .then((response) => {
-      //   if(response.data) console.log(response);
-      // })
   }
 }
 </script>

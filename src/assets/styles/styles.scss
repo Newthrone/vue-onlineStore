@@ -7,4 +7,9 @@
   border-radius: 8px;
   border: none;
   box-shadow: 0 0 2px 0 #000;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px 3px #69bada;
+  }
 }

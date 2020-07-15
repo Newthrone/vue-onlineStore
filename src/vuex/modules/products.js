@@ -6,7 +6,7 @@ export default {
   },
 
   mutations: {
-    SET_PRODUCTS_TO_STATE: (state, products) => {
+    SET_PRODUCTS_TO_STATE(state, products) {
       state.products = products;
     }
   },

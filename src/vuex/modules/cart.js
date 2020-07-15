@@ -1,4 +1,4 @@
-import products from './products'
+import Vue from 'vue'
 
 export default {
   state: {
@@ -6,26 +6,48 @@ export default {
   },
 
   mutations: {
-    ADD_TO_CARD: (state, index) => {
+    ADD_TO_CARD (state, card) {
+      state.cart.push(card);
+    },
+
+    REMOVE_FROM_CARD(state, index) {
+      state.cart.splice(index, 1);
+    },
+    decrementItemCart(state, index) {
+      state.cart[index].quantity -= 1;
+    },
+    incrementItemCart(state, index) {
+      state.cart[index].quantity += 1;
+    },
+  },
+
+  actions: {
+    GET_CATALOG_PRODUCTS({state, commit, rootGetters}, index) {
       let isExistGood = state.cart.some((item) => {
-        if (item === products.getters.PRODUCTS(products.state)[index]) {
+        if (item === rootGetters.PRODUCTS[index]) {
           item.quantity += 1;
           return true;
         }
       });
       if (!isExistGood) {
-        products.getters.PRODUCTS(products.state)[index].quantity = 1;
-        state.cart.push(products.getters.PRODUCTS(products.state)[index]);
+        Vue.set(rootGetters.PRODUCTS[index], 'quantity', 1);
+        commit('ADD_TO_CARD', rootGetters.PRODUCTS[index]);
       }
     },
-    REMOVE_FROM_CARD: (state, index) => {
-      state.cart.splice(index, 1);
-    }
   },
 
   getters: {
     CARD(state) {
       return state.cart;
     },
+    getCatalogItems(state, getters, rootState) {
+      return rootState.products;
+    },
+    getTotalCost(state) {
+      let totalCost = state.cart.reduce((total, cardFromCart)=> {
+        return total + (cardFromCart.quantity * cardFromCart.price);
+      }, 0);
+      return Math.ceil(totalCost * 100) / 100;
+    }
   },
 }

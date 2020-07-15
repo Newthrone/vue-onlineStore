@@ -8,9 +8,18 @@
     </div>
     <div class="v-cart-item__quantity">
       <p>Qty</p>
-      {{ card.quantity }}
+      <span>
+        <span class="v-cart-item__quantity__decrease"
+              @click="decreaseQty">-</span>
+        {{ card.quantity }}
+        <span class="v-cart-item__quantity__increase"
+              @click="increaseQty">+</span>
+      </span>
       </div>
-    <button @click="removeCard">Delete</button>
+    <button @click="removeCard"
+            class="btn">
+            Delete
+    </button>
   </div>
 </template>
 
@@ -27,14 +36,14 @@ export default {
     removeCard() {
       this.$emit('removeCard');
     },
-    decreaseCount() {
-      if (this.card.quantity > 1) this.card.quantity -= 1;
+    decreaseQty() {
+      if (this.card.quantity > 1) this.$emit('decrement');
       else this.removeCard();
+    },
+    increaseQty() {
+      this.$emit('increment');
     }
   },
-  // beforeMount() {
-  //   this.$set(this.card, 'quantity', 1)
-  // }
 }
 </script>
 
@@ -43,10 +52,30 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: $padding $padding * 2;
     box-shadow: 0 0 8px 0 #ccc;
 
     &__image {
       width: 50px;
     }
+
+    &__quantity {
+
+      &__decrease,
+      &__increase {
+        display: inline-flex;
+        width: 25px;
+        height: 25px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        background-color: rgb(179, 255, 255);
+        border: 1px solid #444;
+        cursor: pointer;
+        user-select: none;
+      }
+
+    }
+
   }
 </style>

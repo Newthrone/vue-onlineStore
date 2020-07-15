@@ -9,8 +9,14 @@
       <v-cart-item v-for="(card, index) in CARD"
                 :key="index"
                 :card="card"
-                @removeCard="removeCard(index)"/>
+                @removeCard="removeCard(index)"
+                @decrement="decrement(index)"
+                @increment="increment(index)"/>
     </section>
+    <div class="v-cart__total">
+      <p class="v-cart__total__name">Total:</p>
+      <p>{{ cartTotalCost }} р.</p>
+    </div>
   </div>
 </template>
 
@@ -24,23 +30,33 @@ export default {
     vCartItem,
   },
   computed: {
-    ...mapGetters(['CARD']),
+    ...mapGetters(['CARD', 'getTotalCost']),
+    cartTotalCost() {
+      return this.getTotalCost;
+    }
   },
   methods: {
-    ...mapMutations(['REMOVE_FROM_CARD']),
+    ...mapMutations(['REMOVE_FROM_CARD', 'decrementItemCart', 'incrementItemCart']),
     removeCard(index){
       this.REMOVE_FROM_CARD(index);
-    }
+    },
+    decrement(index) {
+      this.decrementItemCart(index);
+    },
+    increment(index) {
+      this.incrementItemCart(index);
+    },
   },
 }
 </script>
 
 <style lang="scss">
   .v-cart {
+    margin: 0 0 100px;
 
     &__catalog {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       grid-gap: 2vw;
     }
 
@@ -50,6 +66,23 @@ export default {
       right: 10px;
       padding: $padding * 2;
       border: 1px solid #aeaeae;
+    }
+
+    &__total {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      padding: $padding * 2 $padding * 4;
+      background-color: teal;
+      color: #ffffff;
+      font-size: 20px;
+
+      &__name {
+        margin-right: $margin * 2;
+      }
     }
 
   }

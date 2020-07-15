@@ -15,7 +15,7 @@
 
 <script>
 import vCatalogItem from './v-catalog-item';
-import {mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'v-catalog',
@@ -30,9 +30,9 @@ export default {
     ...mapGetters(['PRODUCTS', 'CARD'])
   },
   methods: {
-    ...mapMutations(['ADD_TO_CARD']),
+    ...mapActions(['GET_CATALOG_PRODUCTS']),
     addToCard(index) {
-      this.ADD_TO_CARD(index);
+      this.GET_CATALOG_PRODUCTS(index);
     },
   },
 }

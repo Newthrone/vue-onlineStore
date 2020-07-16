@@ -15,7 +15,8 @@ export default {
   data() {
     return {
       title: "Actual offers",
-      url: 'http://localhost:3000/products',
+      url: 'https://private-460c2-vueonlinestore.apiary-mock.com/catalog',
+      // url: 'http://localhost:3000/products',
     }
   },
   methods: {

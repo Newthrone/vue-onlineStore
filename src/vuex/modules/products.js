@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export default {
   state: {
     products: [],
@@ -14,10 +12,9 @@ export default {
   actions: {
     async GET_PRODUCTS_FROM_API({commit}, url) {
       try {
-        const products = await axios(url, {
-          method: "GET"
-        });
-        commit('SET_PRODUCTS_TO_STATE', products.data);
+        const productsRes = await fetch(url);
+        const products = await productsRes.json()
+        commit('SET_PRODUCTS_TO_STATE', products);
         return products;
       }
       catch (error) {
@@ -25,6 +22,7 @@ export default {
         return error;
       }
     }
+
   },
 
   getters: {
